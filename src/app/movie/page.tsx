@@ -23,12 +23,10 @@ export default function Movies() {
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
   const { paginatedItems, currentPage, totalPages, nextPage, prevPage } =
-  usePagination(filteredMovies, itemsPerPage);
-
+    usePagination(filteredMovies, itemsPerPage);
 
   const handleItemsPerPageChange = (value: number) => {
     setItemsPerPage(value);
-
   };
 
   if (isLoading) return <LoadingMovie />;
@@ -41,18 +39,17 @@ export default function Movies() {
         <h1 className="text-3xl font-bold text-left mb-6">Movies</h1>
 
         <div className="flex flex-col md:flex-row md:justify-between items-center gap-4 md:gap-0 w-full">
-  <CategoryFilter
-    categories={categories}
-    selectedCategories={selectedCategories}
-    setSelectedCategories={setSelectedCategories}
-  />
+          <CategoryFilter
+            categories={categories}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+          />
 
-  <ItemsPerPage
-    itemsPerPage={itemsPerPage}
-    onChange={handleItemsPerPageChange}
-  />
-</div>
-
+          <ItemsPerPage
+            itemsPerPage={itemsPerPage}
+            onChange={handleItemsPerPageChange}
+          />
+        </div>
 
         {/* Movie Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -67,8 +64,6 @@ export default function Movies() {
           totalPages={totalPages}
           nextPage={nextPage}
           prevPage={prevPage}
-
-
         />
       </div>
     </div>

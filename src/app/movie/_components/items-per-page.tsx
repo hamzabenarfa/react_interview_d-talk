@@ -1,5 +1,4 @@
 "use client";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -18,8 +17,6 @@ interface ItemsPerPageProps {
 export function ItemsPerPage({ itemsPerPage, onChange }: ItemsPerPageProps) {
   return (
     <div className="flex items-center justify-center gap-2">
-    
-
       <Select
         value={String(itemsPerPage)}
         onValueChange={(value) => onChange(Number(value))}

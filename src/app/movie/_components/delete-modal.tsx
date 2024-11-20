@@ -29,7 +29,7 @@ const DeleteModal = ({ movieTitle, id }: DeleteModalProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button size="icon" variant="destructive">
+        <Button size="icon" variant="destructive" asChild>
           <Trash2 className="w-5 h-5" />
         </Button>
       </DialogTrigger>

@@ -22,13 +22,13 @@ export function CategoryFilter({
   selectedCategories,
   setSelectedCategories,
 }: CategoryFilterProps) {
-  const [value, setValue] = useState<string[]>([]);
+  const [value, setValue] = useState<Movies[]>([]);
 
   useEffect(() => {
     setValue(selectedCategories.map((category) => category));
   }, [selectedCategories]);
 
-  const handleCategoryChange = (selectedOptions: string[]) => {
+  const handleCategoryChange = (selectedOptions: Movies[]) => {
     setValue(selectedOptions);
     const selectedCategoryObjects = categories.filter((category) =>
       selectedOptions.includes(category)
