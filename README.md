@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React Interview Test - Frontend Developer
 
-## Getting Started
+This project was completed as part of the **Frontend Developer Test** for **D-Talk**. The task involved building a dynamic, responsive movie display application with interactive features. Below is a summary of the work completed:
 
-First, run the development server:
+## Features Implemented
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Movie Cards Layout**: 
+   - Displayed movies in responsive cards with bold titles, categories, and a YouTube-like gauge showing the like/dislike ratio.
+   - The layout adjusts to screen size, with cards wrapping onto the next line when necessary.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Interactive Elements**:
+   - Added a **Delete Button** to remove individual movie cards.
+   - Implemented a **Toggle Like/Dislike Button** to allow users to interact with the movie’s like/dislike status.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Category Filter**:
+   - Implemented a dynamic **Multiselect Category Filter**, which fetches categories from the movies.
+   - Categories are removed from the filter if all the movies within them are deleted.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Pagination**:
+   - Added **Previous/Next Buttons** for pagination and the ability to select the number of movies shown per page (4, 8, or 12).
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js** for the framework, providing server-side rendering and routing.
+- **Tailwind CSS** for utility-first styling to ensure a responsive and visually appealing design.
+- **ShadCN** for UI components to streamline the design process.
+- **Redux** for managing the application state.
+- **React Query** for handling asynchronous data fetching and state management.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Key Considerations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Asynchronous Behavior**: Handled properly in the movie data management.
+- **Responsive Design**: Ensured a smooth, mobile-first experience for users.
+- **Attention to Detail**: Focused on making the application interactive and polished.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How to Run the Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/D-Talk/react-interview.git
+   ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+3. Run the development server:
+
+    ```bash
+    npm run dev
+    ```
