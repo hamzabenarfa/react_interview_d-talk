@@ -29,7 +29,7 @@ const DeleteModal = ({ movieTitle, id }: DeleteModalProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button size="icon" variant="destructive" asChild>
+        <Button size="icon" variant="destructive" >
           <Trash2 className="w-5 h-5" />
         </Button>
       </DialogTrigger>
@@ -38,7 +38,7 @@ const DeleteModal = ({ movieTitle, id }: DeleteModalProps) => {
           <DialogTitle>Confirm Deletion</DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          Are you sure you want to delete the movie `&quot;{movieTitle}`&quot;?
+          Are you sure you want to delete the movie : &quot;{movieTitle}&quot;?
         </DialogDescription>
         <div className="mt-4 flex justify-between gap-4">
           <Button variant="ghost" onClick={() => setOpen(false)}>
