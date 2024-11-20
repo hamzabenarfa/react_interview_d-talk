@@ -7,9 +7,10 @@ import { usePagination } from "@/hooks/usePagination";
 import PaginationComponent from "./_components/Pagination";
 import MovieCard from "./_components/movie-card";
 import { CategoryFilter } from "./_components/category-filter";
-import LoadingMovie from "./_components/loading";
+
 import { ErrorState } from "./_components/error";
 import { ItemsPerPage } from "./_components/items-per-page";
+import { LoadingSkeletonCard } from "./_components/movie-skeleton";
 
 export default function Movies() {
   const { moviesData, isLoading, error } = useMovies();
@@ -35,7 +36,7 @@ export default function Movies() {
     setItemsPerPage(value);
   };
 
-  if (isLoading) return <LoadingMovie />;
+  if (isLoading) return <LoadingSkeletonCard />;
 
   if (error) return <ErrorState message={error?.message} />;
 
