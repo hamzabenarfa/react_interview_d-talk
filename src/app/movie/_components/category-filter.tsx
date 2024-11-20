@@ -1,33 +1,60 @@
+"use client";
+import {
+  MultiSelector,
+  MultiSelectorContent,
+  MultiSelectorInput,
+  MultiSelectorItem,
+  MultiSelectorList,
+  MultiSelectorTrigger,
+} from "@/components/ui/multi-select";
+
 import { Movies } from "@/types/movie.type";
+import { useState, useEffect } from "react";
 
 interface CategoryFilterProps {
-    categories: Movies[];
-    selectedCategories: Movies[];
-    setSelectedCategories: (categories: Movies[]) => void;
-  }
-  
-  export function CategoryFilter({ categories, selectedCategories, setSelectedCategories }: CategoryFilterProps) {
-    const handleCategoryChange = (category: Movies) => {
-      setSelectedCategories(
-        selectedCategories.includes(category)
-          ? selectedCategories.filter((c) => c !== category)
-          : [...selectedCategories, category]
-      );
-    };
-  
-    return (
-      <div className="flex gap-4 mt-4">
-        {categories.map((category) => (
-          <label key={category} className="flex items-center">
-            <input
-              type="checkbox"
-              checked={selectedCategories.includes(category)}
-              onChange={() => handleCategoryChange(category)}
-            />
-            <span className="ml-2">{category}</span>
-          </label>
-        ))}
-      </div>
+  categories: Movies[];
+  selectedCategories: Movies[];
+  setSelectedCategories: (categories: Movies[]) => void;
+}
+
+export function CategoryFilter({
+  categories,
+  selectedCategories,
+  setSelectedCategories,
+}: CategoryFilterProps) {
+  const [value, setValue] = useState<string[]>([]);
+
+  useEffect(() => {
+    setValue(selectedCategories.map((category) => category));
+  }, [selectedCategories]);
+
+  const handleCategoryChange = (selectedOptions: string[]) => {
+    setValue(selectedOptions);
+    const selectedCategoryObjects = categories.filter((category) =>
+      selectedOptions.includes(category)
     );
-  }
-  
+    setSelectedCategories(selectedCategoryObjects);
+  };
+
+  return (
+    <MultiSelector
+      values={value}
+      onValuesChange={handleCategoryChange}
+      loop
+      className="max-w-xl"
+    >
+      <MultiSelectorTrigger>
+        <MultiSelectorInput placeholder="Select Categories" />
+      </MultiSelectorTrigger>
+      <MultiSelectorContent>
+        <MultiSelectorList>
+          {categories.map((category) => (
+            <MultiSelectorItem key={category} value={category}>
+              {category}
+            </MultiSelectorItem>
+          ))}
+        </MultiSelectorList>
+      </MultiSelectorContent>
+    </MultiSelector>
+  );
+}
