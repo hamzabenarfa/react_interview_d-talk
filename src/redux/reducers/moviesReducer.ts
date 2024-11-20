@@ -16,14 +16,20 @@ const moviesSlice = createSlice({
     setMovies(state, action: PayloadAction<Movies[]>) {
       state.movies = action.payload;
     },
+
     updateMovie(state, action: PayloadAction<Movies>) {
-      const index = state.movies.findIndex((movie) => movie.id === action.payload.id);
+      const index = state.movies.findIndex(
+        (movie) => movie.id === action.payload.id
+      );
       if (index !== -1) {
         state.movies[index] = action.payload;
       }
     },
+
     deleteMovie(state, action: PayloadAction<string>) {
-      state.movies = state.movies.filter((movie) => movie.id !== action.payload);
+      state.movies = state.movies.filter(
+        (movie) => movie.id !== action.payload
+      );
     },
   },
 });

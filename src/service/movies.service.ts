@@ -1,6 +1,6 @@
 import { Movies } from "../types/movie.type";
 import { AppDispatch } from "@/redux/store";
-import { deleteMovie, setMovies, updateMovie } from "@/redux/slices/movieSlice";
+import { deleteMovie, setMovies, updateMovie } from "@/redux/actions/moviesActions";
 import { movies$ } from "../data/movies"; 
 
 class MoviesService {
