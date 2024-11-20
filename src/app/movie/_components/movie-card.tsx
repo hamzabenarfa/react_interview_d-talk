@@ -54,7 +54,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             count={movie.likes}
             icon={ThumbsUp}
             onClick={handleLike}
-            disabled={movie.isLiked} // Disable the button if the movie is liked
+            disabled={!!movie.isLiked} 
           />
 
           {/* Dislike Button */}
@@ -63,7 +63,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             count={movie.dislikes}
             icon={ThumbsDown}
             onClick={handleDislike}
-            disabled={movie.isDisliked} // Disable the button if the movie is disliked
+            disabled={!!movie.isDisliked} 
           />
         </div>
         <DeleteModal movieTitle={movie.title} id={movie.id} />

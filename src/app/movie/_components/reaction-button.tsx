@@ -7,7 +7,7 @@ interface ReactionButtonProps {
   count: number;
   icon: LucideIcon;
   onClick: () => void;
-  disabled: boolean; // Accept disabled prop
+  disabled: boolean;
 }
 
 const ReactionButton: React.FC<ReactionButtonProps> = ({
@@ -22,11 +22,13 @@ const ReactionButton: React.FC<ReactionButtonProps> = ({
       variant="ghost"
       size="sm"
       onClick={onClick}
-      disabled={disabled} // Pass disabled prop
-      className=""
+      disabled={disabled}
+      className={"flex items-center gap-2 w-full justify-center text-gray-500"}
     >
       <Icon className="w-5 h-5" />
-      <span>{count} {title}</span>
+      <span>
+        {count} {title}
+      </span>
     </Button>
   );
 };

@@ -4,6 +4,8 @@ import "./globals.css";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 import StoreProvider from "@/providers/ReduxProvider";
+import Head from 'next/head'
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,7 +19,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Movie",
+  title: "Movie App",
   description: "A movie app ",
 };
 
@@ -28,6 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+   
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
