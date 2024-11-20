@@ -22,8 +22,14 @@ export default function Movies() {
 
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  const { paginatedItems, currentPage, totalPages, nextPage, prevPage, goToPage } =
-    usePagination(filteredMovies, itemsPerPage);
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    nextPage,
+    prevPage,
+    goToPage,
+  } = usePagination(filteredMovies, itemsPerPage);
 
   const handleItemsPerPageChange = (value: number) => {
     setItemsPerPage(value);
@@ -34,7 +40,7 @@ export default function Movies() {
   if (error) return <ErrorState message={error?.message} />;
 
   return (
-    <div className="container mx-auto px-4 py-10 lg:px-0 max-w-7xl min-h-screen flex flex-col justify-between">
+    <div className="container mx-auto px-4 py-10 lg:px-4 max-w-7xl min-h-screen flex flex-col justify-between">
       <section className="">
         <h1 className="text-3xl font-bold text-left mb-6">Movies</h1>
 
@@ -58,7 +64,6 @@ export default function Movies() {
         </div>
       </section>
 
-      
       <PaginationComponent
         currentPage={currentPage}
         totalPages={totalPages}
