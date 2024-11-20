@@ -38,7 +38,7 @@ const DeleteModal = ({ movieTitle, id }: DeleteModalProps) => {
           <DialogTitle>Confirm Deletion</DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          Are you sure you want to delete the movie "{movieTitle}"?
+          Are you sure you want to delete the movie `&quot;{movieTitle}`&quot;?
         </DialogDescription>
         <div className="mt-4 flex justify-between gap-4">
           <Button variant="ghost" onClick={() => setOpen(false)}>

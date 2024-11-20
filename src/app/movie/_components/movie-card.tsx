@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/card";
 
 import Gauge from "./Gauge";
-import { Button } from "@/components/ui/button";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
 
-import { useToggleLikeDislike } from "@/hooks/use-movies";
-import DeleteModal from "./delete-modal";
+import { useDispatch } from "react-redux";
+import { toggleDislike, toggleLike } from "@/redux/reducers/moviesReducer";
 import ReactionButton from "./reaction-button";
+import DeleteModal from "./delete-modal";
 
 interface MovieCardProps {
   movie: Movies;
@@ -22,12 +22,15 @@ interface MovieCardProps {
 const MovieCard = ({ movie }: MovieCardProps) => {
   const totalVotes = movie.likes + movie.dislikes;
   const likePercentage = totalVotes > 0 ? (movie.likes / totalVotes) * 100 : 0;
+  const dispatch = useDispatch();
 
-  const { mutate: likeMovie } = useToggleLikeDislike();
-  const { mutate: dislikeMovie } = useToggleLikeDislike();
+  const handleLike = () => {
+    dispatch(toggleLike(movie.id));
+  };
 
-  const handleLike = () => likeMovie({ movie, action: "like" });
-  const handleDislike = () => dislikeMovie({ movie, action: "dislike" });
+  const handleDislike = () => {
+    dispatch(toggleDislike(movie.id));
+  };
 
   return (
     <Card className="w-full max-w-sm flex flex-col justify-between">
@@ -36,27 +39,31 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           <CardTitle className="text-2xl font-bold text-balance">
             {movie.title}
           </CardTitle>
-          <CardDescription className="text-yellow-400  font-semibold">
+          <CardDescription className="text-yellow-400 font-semibold">
             {movie.category}
           </CardDescription>
         </div>
         <Gauge percentage={likePercentage} />
       </CardHeader>
 
-      <CardFooter className="flex justify-between  items-center ">
+      <CardFooter className="flex justify-between items-center">
         <div className="flex">
+          {/* Like Button */}
           <ReactionButton
             title="Likes"
             count={movie.likes}
             icon={ThumbsUp}
             onClick={handleLike}
+            disabled={movie.isLiked} // Disable the button if the movie is liked
           />
 
+          {/* Dislike Button */}
           <ReactionButton
             title="Dislikes"
             count={movie.dislikes}
             icon={ThumbsDown}
             onClick={handleDislike}
+            disabled={movie.isDisliked} // Disable the button if the movie is disliked
           />
         </div>
         <DeleteModal movieTitle={movie.title} id={movie.id} />

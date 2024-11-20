@@ -1,0 +1,2 @@
+export const TOGGLE_LIKE = 'TOGGLE_LIKE';
+export const TOGGLE_DISLIKE = 'TOGGLE_DISLIKE';

@@ -31,9 +31,43 @@ const moviesSlice = createSlice({
         (movie) => movie.id !== action.payload
       );
     },
+
+    toggleLike(state, action: PayloadAction<string>) {
+      const updatedMovies = state.movies.map((movie) => {
+        if (movie.id === action.payload) {
+          // If the movie was disliked before, reset the dislike
+          return {
+            ...movie,
+            isLiked: !movie.isLiked,
+            isDisliked: false, // Reset dislike when liking
+            likes: movie.isLiked ? movie.likes - 1 : movie.likes + 1,
+            dislikes: movie.isDisliked ? movie.dislikes - 1 : movie.dislikes,
+          };
+        }
+        return movie;
+      });
+      state.movies = updatedMovies;
+    },
+
+    toggleDislike(state, action: PayloadAction<string>) {
+      const updatedMovies = state.movies.map((movie) => {
+        if (movie.id === action.payload) {
+          // If the movie was liked before, reset the like
+          return {
+            ...movie,
+            isDisliked: !movie.isDisliked,
+            isLiked: false, // Reset like when disliking
+            dislikes: movie.isDisliked ? movie.dislikes - 1 : movie.dislikes + 1,
+            likes: movie.isLiked ? movie.likes - 1 : movie.likes,
+          };
+        }
+        return movie;
+      });
+      state.movies = updatedMovies;
+    },
   },
 });
 
-export const { setMovies, updateMovie, deleteMovie } = moviesSlice.actions;
+export const { setMovies, updateMovie, deleteMovie, toggleLike, toggleDislike } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
