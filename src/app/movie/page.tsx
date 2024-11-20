@@ -38,7 +38,7 @@ export default function Movies() {
       <section className="">
         <h1 className="text-3xl font-bold text-left mb-6">Movies</h1>
 
-        <header className="flex flex-col md:flex-row md:justify-between items-center gap-4 md:gap-0 w-full">
+        <header className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-4 md:gap-0 w-full">
           <CategoryFilter
             categories={categories}
             selectedCategories={selectedCategories}
