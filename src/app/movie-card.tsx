@@ -11,9 +11,8 @@ import {
 import Gauge from "./Gauge";
 import { Button } from "@/components/ui/button";
 import { ThumbsUp, ThumbsDown, Trash2 } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import moviesService from "@/service/movies.service";
+
+import { useDeleteMovie, useToggleLikeDislike } from "@/hooks/use-movies";
 
 
 interface MovieCardProps {
@@ -22,29 +21,16 @@ interface MovieCardProps {
 
 const MovieCard = ({ movie }: MovieCardProps) => {
 
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-
   const totalVotes = movie.likes + movie.dislikes;
   const likePercentage = totalVotes > 0 ? (movie.likes / totalVotes) * 100 : 0;
 
-  const handleLike = async (movieId: string) => {
-    setIsLoading(true);
-    await moviesService.toggleLikeDislike(movie, "like", dispatch);
-    setIsLoading(false);
-  };
+  const { mutate: likeMovie } = useToggleLikeDislike();
+  const { mutate: dislikeMovie } = useToggleLikeDislike();
+  const { mutate: deleteMovie } = useDeleteMovie();
 
-  const handleDislike = async (movieId: string) => {
-    setIsLoading(true);
-    await moviesService.toggleLikeDislike(movie, "dislike", dispatch);
-    setIsLoading(false);
-  };
-
-  const handleDelete = async (movieId: string) => {
-    setIsLoading(true);
-    await moviesService.deleteMovie(movieId, dispatch);
-    setIsLoading(false);
-  };
+  const handleLike = () => likeMovie({ movie, action: "like" });
+  const handleDislike = () => dislikeMovie({ movie, action: "dislike" });
+  const handleDelete = () => deleteMovie(movie.id);
 
   return (
     <Card className="w-full max-w-sm">
@@ -60,16 +46,16 @@ const MovieCard = ({ movie }: MovieCardProps) => {
       <CardContent></CardContent>
       <CardFooter className="flex justify-between gap-2 items-center">
         <div className="gap-1 flex">
-          <Button variant="ghost" onClick={() => handleLike(movie.id)} className="p-2">
+          <Button variant="ghost" onClick={handleLike} className="p-2">
             <ThumbsUp className="w-5 h-5" /> <span>{movie.likes} Likes</span>
           </Button>
-          <Button variant="ghost" onClick={() => handleDislike(movie.id)} className="p-2">
+          <Button variant="ghost" onClick={handleDislike} className="p-2">
             <ThumbsDown className="w-5 h-5" />{" "}
             <span>{movie.dislikes} Dislikes</span>
           </Button>
         </div>
         <Button
-          onClick={() => handleDelete(movie.id)}
+          onClick={handleDelete}
           variant="destructive"
           size="icon"
         >

@@ -9,13 +9,40 @@ export const useMovies = () => {
   const { movies } = useSelector((state: RootState) => state.movies);
 
   const { isLoading, error } = useQuery<Movies[], Error>({
-    queryKey: ["movies"],
+    queryKey: ["movies"], // this is cache key
     queryFn: () => moviesService.fetchMovies(dispatch),
-    // onSuccess: (data: Movies[]) => {
-    //   dispatch(setMovies(data)); 
-    // },
   });
 
   return { moviesData: movies, isLoading, error };
 };
 
+export const useToggleLikeDislike = () => {  const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ movie, action }: { movie: Movies; action: "like" | "dislike" }) =>
+      moviesService.toggleLikeDislike(movie, action,dispatch),
+    onSuccess: (updatedMovie) => {
+      // Update the cached movies data with the updated movie
+      queryClient.setQueryData(["movies"], (oldMovies: Movies[] | undefined) => {
+        return oldMovies?.map((m) => (m.id === updatedMovie.id ? updatedMovie : m));
+      });
+    },
+  });
+};
+
+export const useDeleteMovie = () => {
+  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (movieId: string) => moviesService.deleteMovie(movieId,dispatch),
+    onSuccess: (movieId) => {
+      // Remove the deleted movie from the cached movies data
+      queryClient.setQueryData(["movies"], (oldMovies: any[] | undefined) => {
+        return oldMovies?.filter((movie) => movie.id !== movieId);
+      });
+    },
+  });
+};

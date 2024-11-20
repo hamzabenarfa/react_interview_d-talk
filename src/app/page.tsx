@@ -28,7 +28,7 @@ export default function Home() {
     }
 
   return (
-    <div className="p-8 md:mx-60">
+    <div className="p-8 md:mx-40 lg:mx-20">
       <h1 className="text-2xl font-bold">Movies</h1>
       <div className="flex gap-4 mt-4">
         {categories.map((category) => (
