@@ -25,7 +25,7 @@ This project was completed as part of the **Frontend Developer Test** for **D-Ta
 - **Tailwind CSS** for utility-first styling to ensure a responsive and visually appealing design.
 - **ShadCN** for UI components to streamline the design process.
 - **Redux** for managing the application state.
-- **React Query** for handling asynchronous data fetching and state management.
+
 
 ## Key Considerations
 
