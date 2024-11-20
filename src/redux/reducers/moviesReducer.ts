@@ -17,15 +17,6 @@ const moviesSlice = createSlice({
       state.movies = action.payload;
     },
 
-    updateMovie(state, action: PayloadAction<Movies>) {
-      const index = state.movies.findIndex(
-        (movie) => movie.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.movies[index] = action.payload;
-      }
-    },
-
     deleteMovie(state, action: PayloadAction<string>) {
       state.movies = state.movies.filter(
         (movie) => movie.id !== action.payload
@@ -35,7 +26,6 @@ const moviesSlice = createSlice({
     toggleLike(state, action: PayloadAction<string>) {
       const updatedMovies = state.movies.map((movie) => {
         if (movie.id === action.payload) {
-          // If the movie was disliked before, reset the dislike
           return {
             ...movie,
             isLiked: !movie.isLiked,
@@ -52,12 +42,13 @@ const moviesSlice = createSlice({
     toggleDislike(state, action: PayloadAction<string>) {
       const updatedMovies = state.movies.map((movie) => {
         if (movie.id === action.payload) {
-          // If the movie was liked before, reset the like
           return {
             ...movie,
             isDisliked: !movie.isDisliked,
             isLiked: false, // Reset like when disliking
-            dislikes: movie.isDisliked ? movie.dislikes - 1 : movie.dislikes + 1,
+            dislikes: movie.isDisliked
+              ? movie.dislikes - 1
+              : movie.dislikes + 1,
             likes: movie.isLiked ? movie.likes - 1 : movie.likes,
           };
         }
@@ -68,6 +59,11 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setMovies, updateMovie, deleteMovie, toggleLike, toggleDislike } = moviesSlice.actions;
+export const {
+  setMovies,
+  deleteMovie,
+  toggleLike,
+  toggleDislike,
+} = moviesSlice.actions;
 
 export default moviesSlice.reducer;

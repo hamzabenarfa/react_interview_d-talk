@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import { useDeleteMovie } from "@/hooks/use-movies";
 import { useState } from "react";
+import moviesService from "@/service/movies.service";
+import { useDispatch } from "react-redux";
 
 interface DeleteModalProps {
   movieTitle: string;
@@ -18,12 +19,15 @@ interface DeleteModalProps {
 }
 
 const DeleteModal = ({ movieTitle, id }: DeleteModalProps) => {
-  const { mutate: deleteMovie } = useDeleteMovie();
   const [open, setOpen] = useState(false);
-
-  const onDelete = () => {
-    deleteMovie(id);
-    setOpen(false);
+  const dispatch = useDispatch();
+  const handleDelete = async () => {
+    try {
+      await moviesService.deleteMovieById(dispatch, id); // Delete the movie
+      setOpen(false); // Close the modal after successful deletion
+    } catch (error) {
+      console.error("Failed to delete movie:", error);
+    }
   };
 
   return (
@@ -44,7 +48,7 @@ const DeleteModal = ({ movieTitle, id }: DeleteModalProps) => {
           <Button variant="ghost" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={onDelete}>
+          <Button variant="destructive" onClick={handleDelete}>
             Delete
           </Button>
         </div>

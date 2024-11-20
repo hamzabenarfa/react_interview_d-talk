@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-import { useMovies } from "@/hooks/use-movies";
+import { useEffect, useState } from "react";
 import { useFilters } from "@/hooks/useFilters";
 import { usePagination } from "@/hooks/usePagination";
 
@@ -11,9 +10,33 @@ import { CategoryFilter } from "./_components/category-filter";
 import { ErrorState } from "./_components/error";
 import { ItemsPerPage } from "./_components/items-per-page";
 import { LoadingSkeletonCard } from "./_components/movie-skeleton";
+import moviesService from "@/service/movies.service";
+import { useDispatch, useSelector } from "react-redux";
+
 
 export default function Movies() {
-  const { moviesData, isLoading, error } = useMovies();
+  const moviesData = useSelector((state: RootState) => state.movies.movies);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
+
+  // Fetch movies data on component mount
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const data = await moviesService.fetchMovies(dispatch);
+        // setMoviesData(data);
+      } catch (err) {
+        setError("Error loading movies");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, [dispatch]);
+
+
   const {
     categories,
     selectedCategories,
