@@ -13,6 +13,7 @@ import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 import { useToggleLikeDislike } from "@/hooks/use-movies";
 import DeleteModal from "./delete-modal";
+import ReactionButton from "./reaction-button";
 
 interface MovieCardProps {
   movie: Movies;
@@ -44,24 +45,19 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
       <CardFooter className="flex justify-between  items-center ">
         <div className="flex">
-          <Button
-            variant="ghost"
-            size="sm"
+          <ReactionButton
+            title="Likes"
+            count={movie.likes}
+            icon={ThumbsUp}
             onClick={handleLike}
-            className=" flex items-center justify-center"
-          >
-            <ThumbsUp className="w-5 h-5" />{" "}
-            <span className=" -ml-1">{movie.likes} Likes</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
+          />
+
+          <ReactionButton
+            title="Dislikes"
+            count={movie.dislikes}
+            icon={ThumbsDown}
             onClick={handleDislike}
-            className=" flex items-center justify-center"
-          >
-            <ThumbsDown className="w-5 h-5" />
-            <span className=" -ml-1">{movie.dislikes} Dislikes</span>
-          </Button>
+          />
         </div>
         <DeleteModal movieTitle={movie.title} id={movie.id} />
       </CardFooter>
