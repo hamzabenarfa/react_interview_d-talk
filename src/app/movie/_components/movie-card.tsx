@@ -10,33 +10,31 @@ import {
 
 import Gauge from "./Gauge";
 import { Button } from "@/components/ui/button";
-import { ThumbsUp, ThumbsDown, Trash2 } from "lucide-react";
+import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 import { useDeleteMovie, useToggleLikeDislike } from "@/hooks/use-movies";
-
+import DeleteModal from "./delete-modal";
+import { useState } from "react";
 
 interface MovieCardProps {
   movie: Movies;
 }
 
 const MovieCard = ({ movie }: MovieCardProps) => {
-
   const totalVotes = movie.likes + movie.dislikes;
   const likePercentage = totalVotes > 0 ? (movie.likes / totalVotes) * 100 : 0;
 
   const { mutate: likeMovie } = useToggleLikeDislike();
   const { mutate: dislikeMovie } = useToggleLikeDislike();
-  const { mutate: deleteMovie } = useDeleteMovie();
 
   const handleLike = () => likeMovie({ movie, action: "like" });
   const handleDislike = () => dislikeMovie({ movie, action: "dislike" });
-  const handleDelete = () => deleteMovie(movie.id);
 
   return (
     <Card className="w-full max-w-sm">
-      <CardHeader className="flex items-center  justify-between flex-row">
+      <CardHeader className="flex items-center justify-between flex-row">
         <div>
-          <CardTitle className="text-2xl font-bold">{movie.title}</CardTitle>
+          <CardTitle className="text-2xl font-bold text-balance">{movie.title}</CardTitle>
           <CardDescription className="text-yellow-400  font-semibold">
             {movie.category}
           </CardDescription>
@@ -54,13 +52,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             <span>{movie.dislikes} Dislikes</span>
           </Button>
         </div>
-        <Button
-          onClick={handleDelete}
-          variant="destructive"
-          size="icon"
-        >
-          <Trash2 className="w-5 h-5" />
-        </Button>
+        <DeleteModal movieTitle={movie.title} id={movie.id}  />
       </CardFooter>
     </Card>
   );
