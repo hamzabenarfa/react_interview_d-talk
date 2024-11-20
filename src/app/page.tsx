@@ -2,9 +2,9 @@
 import { useMovies } from "@/hooks/use-movies";
 import { useFilters } from "@/hooks/useFilters";
 import { usePagination } from "@/hooks/usePagination";
-import MovieCard from "./movie-card";
-import Pagination from "../components/Pagination";
-import { SkeletonCard } from "./movie-skeleton";
+import MovieCard from "./movie/_components/movie-card";
+import Pagination from "./movie/_components/Pagination";
+import { SkeletonCard } from "./movie/_components/movie-skeleton";
 
 
 export default function Home() {
@@ -28,42 +28,45 @@ export default function Home() {
     }
 
   return (
-    <div className="p-8 md:mx-40 lg:mx-20">
-      <h1 className="text-2xl font-bold">Movies</h1>
-      <div className="flex gap-4 mt-4">
-        {categories.map((category) => (
-          <label key={category} className="flex items-center">
-            <input
-              type="checkbox"
-              checked={selectedCategories.includes(category)}
-              onChange={() => {
-                setSelectedCategories((prev) =>
-                  prev.includes(category)
-                    ? prev.filter((c) => c !== category)
-                    : [...prev, category]
-                );
-              }}
-            />
-            <span className="ml-2">{category}</span>
-          </label>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-        {paginatedItems.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-          />
-        ))}
-      </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        nextPage={nextPage}
-        prevPage={prevPage}
-      />
+    <div>
+      hi
     </div>
+    // <div className="p-8 md:mx-40 lg:mx-20">
+    //   <h1 className="text-2xl font-bold">Movies</h1>
+    //   <div className="flex gap-4 mt-4">
+    //     {categories.map((category) => (
+    //       <label key={category} className="flex items-center">
+    //         <input
+    //           type="checkbox"
+    //           checked={selectedCategories.includes(category)}
+    //           onChange={() => {
+    //             setSelectedCategories((prev) =>
+    //               prev.includes(category)
+    //                 ? prev.filter((c) => c !== category)
+    //                 : [...prev, category]
+    //             );
+    //           }}
+    //         />
+    //         <span className="ml-2">{category}</span>
+    //       </label>
+    //     ))}
+    //   </div>
+
+    //   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+    //     {paginatedItems.map((movie) => (
+    //       <MovieCard
+    //         key={movie.id}
+    //         movie={movie}
+    //       />
+    //     ))}
+    //   </div>
+
+    //   <Pagination
+    //     currentPage={currentPage}
+    //     totalPages={totalPages}
+    //     nextPage={nextPage}
+    //     prevPage={prevPage}
+    //   />
+    // </div>
   );
 }
