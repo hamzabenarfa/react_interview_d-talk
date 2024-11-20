@@ -16,28 +16,13 @@ export const useMovies = () => {
   return { moviesData: movies, isLoading, error };
 };
 
-export const useToggleLikeDislike = () => {  const dispatch = useDispatch();
-
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({ movie, action }: { movie: Movies; action: "like" | "dislike" }) =>
-      moviesService.toggleLikeDislike(movie, action,dispatch),
-    onSuccess: (updatedMovie) => {
-      // Update the cached movies data with the updated movie
-      queryClient.setQueryData(["movies"], (oldMovies: Movies[] | undefined) => {
-        return oldMovies?.map((m) => (m.id === updatedMovie.id ? updatedMovie : m));
-      });
-    },
-  });
-};
-
 export const useDeleteMovie = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (movieId: string) => moviesService.deleteMovie(movieId,dispatch),
+    mutationFn: (movieId: string) =>
+      moviesService.deleteMovie(movieId, dispatch),
     onSuccess: (movieId) => {
       // Remove the deleted movie from the cached movies data
       queryClient.setQueryData(["movies"], (oldMovies: any[] | undefined) => {

@@ -4,7 +4,7 @@ import "./globals.css";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 import StoreProvider from "@/providers/ReduxProvider";
-import Head from 'next/head'
+
 
 
 const geistSans = localFont({

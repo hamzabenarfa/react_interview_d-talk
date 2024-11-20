@@ -3,7 +3,6 @@ import { AppDispatch } from "@/redux/store";
 import {
   deleteMovie,
   setMovies,
-  updateMovie,
 } from "@/redux/actions/moviesActions";
 import { movies$ } from "../data/movies";
 
